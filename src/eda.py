@@ -152,56 +152,6 @@ def plot_payment_stats():
 def plot_logistics_breakdown(df):
     print("Generating Logistics Breakdown...")
     
-    # 1. Feature Engineering (Recreating your Kaggle logic)
-    # Time to Ship: From Approval -> Handover to Carrier (Seller Responsibility)
-    df['time_to_ship'] = (df['order_delivered_carrier_date'] - df['order_approved_at']).dt.days
-    
-    # Carrier Time: From Handover -> Delivery to Customer (Carrier Responsibility)
-    df['carrier_time'] = (df['order_delivered_customer_date'] - df['order_delivered_carrier_date']).dt.days
-    
-    # Total Delivery Time: Purchase -> Customer
-    df['total_delivery_time'] = (df['order_delivered_customer_date'] - df['order_purchase_timestamp']).dt.days
-    
-    # Filter valid positive times (negative times are data errors)
-    valid_logistics = df[
-        (df['time_to_ship'] >= 0) & 
-        (df['carrier_time'] >= 0) & 
-        (df['total_delivery_time'] < 100) # Remove extreme outliers
-    ].copy()
-    
-    # A. Comparative Histogram (Seller vs Carrier)
-    plt.figure(figsize=(14, 7))
-    sns.histplot(valid_logistics['time_to_ship'], color='blue', alpha=0.5, label='Time to Ship (Seller)', bins=30, kde=True)
-    sns.histplot(valid_logistics['carrier_time'], color='orange', alpha=0.5, label='Transit Time (Carrier)', bins=30, kde=True)
-    plt.title('Seller Speed vs. Carrier Speed', fontweight='bold')
-    plt.xlabel('Days')
-    plt.ylabel('Frequency')
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(os.path.join(FIGURES_DIR, "12_seller_vs_carrier_time.png"))
-    plt.close()
-
-    # B. The "Who is slower?" Ratio
-    avg_ship = valid_logistics['time_to_ship'].mean()
-    avg_transit = valid_logistics['carrier_time'].mean()
-    
-    # Pie chart of Total Time Composition
-    labels = ['Seller Processing', 'Carrier Transit']
-    sizes = [avg_ship, avg_transit]
-    colors = ['#3498db', '#e67e22']
-    
-    plt.figure(figsize=(8, 8))
-    plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90, explode=(0.05, 0))
-    plt.title(f'Average Delivery Breakdown\n(Total Avg: {avg_ship+avg_transit:.1f} days)', fontweight='bold')
-    plt.tight_layout()
-    plt.savefig(os.path.join(FIGURES_DIR, "13_delivery_time_breakdown.png"))
-    plt.close()
-
-# ... (Keep imports and previous functions)
-
-def plot_logistics_breakdown(df):
-    print("Generating Logistics Breakdown...")
-    
     # 1. Feature Engineering
     # Seller Speed: Approved -> Handover
     df['time_to_ship'] = (df['order_delivered_carrier_date'] - df['order_approved_at']).dt.days
@@ -257,6 +207,7 @@ def plot_logistics_breakdown(df):
     plt.tight_layout()
     plt.savefig(os.path.join(FIGURES_DIR, "13_state_logistics_breakdown.png"))
     plt.close()
+
 
 if __name__ == "__main__":
     df_master = load_master_data()

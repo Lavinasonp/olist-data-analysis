@@ -8,8 +8,8 @@ PROCESSED_DATA_DIR = DATA_DIR / "processed"
 MODEL_DIR = PROJECT_ROOT / "models"
 REPORTS_DIR = PROJECT_ROOT / "reports"  # For saving plots
 
-# MLflow Config
-MLFLOW_TRACKING_URI = "file://" + str(PROJECT_ROOT / "mlruns")
+# MLflow Config (Fixing URI for Windows)
+MLFLOW_TRACKING_URI = "file:///" + str(PROJECT_ROOT / "mlruns").replace("\\", "/")
 MLFLOW_EXPERIMENT_NAME = "olist_demand_forecasting"
 
 os.makedirs(RAW_DATA_DIR, exist_ok=True)
