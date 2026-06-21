@@ -79,6 +79,11 @@ df_original = load_data()
 if df_original.empty:
     st.stop()
 
+import os
+logo_path = "assets/olist_logo.png"
+if os.path.exists(logo_path):
+    st.sidebar.image(logo_path, use_container_width=True)
+
 st.sidebar.title("Filters")
 
 states = ['All'] + sorted(list(df_original['customer_state'].dropna().unique()))

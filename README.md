@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://avatars.githubusercontent.com/u/27393444" alt="Olist Logo" width="150"/>
+  <img src="assets/olist_logo.png" alt="Olist Logo" width="250"/>
 </div>
 
 # Olist Supply Chain & Operations Analytics
