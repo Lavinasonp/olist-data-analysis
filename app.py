@@ -79,10 +79,14 @@ df_original = load_data()
 if df_original.empty:
     st.stop()
 
-import os
-logo_path = "assets/olist_logo.png"
-if os.path.exists(logo_path):
-    st.sidebar.image(logo_path, use_container_width=True)
+st.sidebar.markdown(
+    """
+    <div style="font-family: 'Inter', 'Arial Black', sans-serif; font-size: 42px; font-weight: 900; color: #004B93; padding-bottom: 10px; letter-spacing: -2px;">
+        olist
+    </div>
+    """, 
+    unsafe_allow_html=True
+)
 
 st.sidebar.title("Filters")
 

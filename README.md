@@ -1,6 +1,4 @@
-<div align="center">
-  <img src="assets/olist_logo.png" alt="Olist Logo" width="250"/>
-</div>
+
 
 # Olist Supply Chain & Operations Analytics
 
